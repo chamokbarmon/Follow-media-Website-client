@@ -1,10 +1,10 @@
 import axios from "axios";
 import React, { useState } from "react";
-import check from '../../../public/img/check.png'
-import world from '../../../public/img/world-wide-web.png'
-import more from '../../../public/img/more.png';
-import mark from '../../../public/img/circle-xmark.png';
-import './VideoShow.css'
+import check from "../../../public/img/check.png";
+import world from "../../../public/img/world-wide-web.png";
+import more from "../../../public/img/more.png";
+import mark from "../../../public/img/circle-xmark.png";
+import "./VideoShow.css";
 
 const VideoShowCard = () => {
   const [data, setData] = useState();
@@ -19,31 +19,35 @@ const VideoShowCard = () => {
     <div>
       {data?.data.map((dataflow) => (
         <div className="max-w-xl mx-auto my-4 rounded-lg overflow-hidden shadow-lg bg-slate-300">
-         <div className="flex justify-between p-5">
-        <div className="flex">
-        <div className="avatar online">
-            <div className="w-10  rounded-full">
-              <img src={dataflow.picture} />
+          <div className="flex justify-between p-5">
+            <div className="flex">
+              <div className="avatar online">
+                <div className="w-10  rounded-full">
+                  <img src={dataflow.picture} />
+                </div>
+              </div>
+              <div>
+                <div className="flex">
+                  <h4 className="ml-3 italic font-bold">{dataflow.name}</h4>
+                  <img className="w-3 h-4 mt-1 ml-1" src={check} alt="" />{" "}
+                  <br />
+                </div>
+              </div>
+              <div className="flex  ">
+                <p className="ml-2">|| 10 September at 8:15</p>
+                <img className="h-4 mt-1 ml-2 " src={world} alt="" />
+              </div>
+            </div>
+
+            <div className="flex">
+              <button>
+                <img className="w-6 mb-1 me-3" src={more} alt="" />
+              </button>
+              <button>
+                <img className="w-5 h-7 " src={mark} alt="" />
+              </button>
             </div>
           </div>
-           <div >
-              <div className="flex">
-              <h4 className="ml-3 italic font-bold">{dataflow.name}</h4>
-              <img className="w-3 h-4 mt-1 ml-1" src={check} alt="" /> <br />
-              </div>
-           </div>
-          <div className="flex  ">
-          <p className="ml-2">|| 10 September at 8:15</p>
-          <img className="h-4 mt-1 ml-2 " src={world} alt="" />
-         
-          </div>
-        </div>
-
-          <div className="flex">
-           <button><img className="w-6 mb-1 me-3" src={more} alt="" /></button>
-            <button><img className="w-5 h-7 " src={mark} alt="" /></button>
-          </div>
-         </div>
           <div className="relative overflow-hidden aspect-ratio-16/9 ">
             <iframe
               className="w-full height"

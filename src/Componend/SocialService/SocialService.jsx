@@ -2,14 +2,14 @@ import React from "react";
 
 const SocialService = () => {
   return (
-    <div className="container-full p-10"
-    style={{
+    <div
+      className="container-full p-10"
+      style={{
         backgroundImage:
           "url(https://images.pexels.com/photos/1037992/pexels-photo-1037992.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1)",
-          
-        }}
+      }}
     >
-      <div className="text-center text-4xl  underline mb-10 ">Services</div>
+      <div className="text-center text-4xl  underline">Services</div>
 
       <div className="w-full flex justify-center gap-10">
         <div>
@@ -57,12 +57,9 @@ const SocialService = () => {
           </div>
         </div>
       </div>
-     
-     
     </div>
 
-    //  
-       
+    //
   );
 };
 

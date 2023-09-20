@@ -44,7 +44,7 @@ const VideoShowCard = () => {
                 <img className="w-6 mb-1 me-3" src={more} alt="" />
               </button>
               <button>
-                <img className="w-5 h-7 " src={mark} alt="" />
+                <img className="w-5 h-5 " src={mark} alt="" />
               </button>
             </div>
           </div>

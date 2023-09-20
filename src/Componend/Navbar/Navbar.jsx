@@ -1,10 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import "./Navbar.css";
 
 const Navbar = () => {
   return (
-    <div className="navbar bg-red-200 rounded border-dotted border-8 border-x-2 border-y-2 border-pink-800">
-      <div className="navbar-start border-dotted">
+    <div className="navbar  color text-white">
+      <div className="navbar-start">
         <div className="dropdown">
           <label tabIndex={0} className="btn btn-ghost lg:hidden">
             <svg
@@ -30,20 +31,22 @@ const Navbar = () => {
               <Link to="/">Home</Link>
             </li>
             <li>
-              <Link to="/service">service</Link>
+              <Link to="/service">Media</Link>
             </li>
             <li>
-              <Link to="/blog">Blog</Link>
+              <Link to="/blog">Message</Link>
             </li>
             <li>
               <Link to="/video">Video</Link>
             </li>
             <li>
-              <Link to="/notification">Notification</Link>
+              <Link to="/notification">About us</Link>
             </li>
           </ul>
         </div>
-        <a className="btn btn-ghost normal-case text-xl italic">Follow Media</a>
+        <Link to="/" className="btn btn-ghost normal-case text-xl italic">
+          Follow Media
+        </Link>
       </div>
       <div className="navbar-center hidden lg:flex font-bold">
         <ul className="menu menu-horizontal px-1">
@@ -51,16 +54,16 @@ const Navbar = () => {
             <Link to="/">Home</Link>
           </li>
           <li>
-            <Link to="/service">service</Link>
+            <Link to="/service">Media</Link>
           </li>
           <li>
-            <Link to="/blog">Blog</Link>
+            <Link to="/blog">Message</Link>
           </li>
           <li>
             <Link to="/video">Video</Link>
           </li>
           <li>
-            <Link to="/notification">Notification</Link>
+            <Link to="/notification">About us</Link>
           </li>
         </ul>
       </div>
@@ -92,7 +95,7 @@ const Navbar = () => {
           </label>
           <ul
             tabIndex={0}
-            className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
+            className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-slate-950 rounded-box w-52"
           >
             <li>
               <a className="justify-between">

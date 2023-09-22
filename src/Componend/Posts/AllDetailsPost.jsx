@@ -1,9 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import Swal from "sweetalert2";
 
-
-const Posts = () => {
+const AllDetailsPost = () => {
   const [posts, setPosts] = useState([]);
   const [loveCount, setLoveCount] = useState(0);
   const [islove, setIslove] = useState(false);
@@ -17,7 +14,7 @@ const Posts = () => {
       setIslove(false);
     }
   };
-
+  console.log(posts.data);
   useEffect(() => {
     fetch("https://follow-server-dd657x478-chamokbarmon.vercel.app/mediaShow")
       .then((res) => res.json())
@@ -35,7 +32,6 @@ const Posts = () => {
       })
       .catch((e) => e.message);
   }, []);
-
   return (
     <div
       style={{
@@ -44,8 +40,8 @@ const Posts = () => {
           "URL(https://i.ibb.co/ZSH6FWz/layered-waves-haikei-6.png)",
       }}
     >
-      <div className=" grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-5 ml-5 p-10">
-        {posts.data?.slice(0, 3).map((post) => (
+      <div className="container grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-5 ml-5 p-10">
+        {posts.data?.map((post) => (
           <div className=" max-w-lg mx-auto my-4 p-4 bg-slate-800 text-white shadow-md rounded-lg">
             <div className="flex items-center mb-4">
               <img
@@ -72,14 +68,15 @@ const Posts = () => {
                 <button className="flex items-center text-white hover:text-blue-700 mr-2">
                   <div className="flex">
                     <button onClick={loveButtonHandel}>
-                    <img className="h-10 w-10 rounded" color="islove?red:black" src="https://i.ibb.co/T2VVmRx/touch.png" alt="" />
-              
+                      <img
+                        className="h-10 w-10 rounded"
+                        color="islove?red:black"
+                        src="https://i.ibb.co/T2VVmRx/touch.png"
+                        alt=""
+                      />
                     </button>
                     <p>
-                      {loveCount}{" "}
-                      {loveCount === 1
-                        ? "Love"
-                        :"love"}
+                      {loveCount} {loveCount === 1 ? "Love" : "love"}
                     </p>
                   </div>
                 </button>
@@ -140,11 +137,8 @@ const Posts = () => {
           </div>
         ))}
       </div>
-      <button className="btn btn-primary flex m-auto ">
-        <Link to="/media">All post Details </Link>
-      </button>
     </div>
   );
 };
 
-export default Posts;
+export default AllDetailsPost;

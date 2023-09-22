@@ -11,6 +11,9 @@ import Main from "./Layout/Main.jsx";
 import Home from "./Componend/Home/Home";
 import VideoShowCard from "./Componend/VideoShowCard/VideoShowCard";
 import ServicesCard from "./Componend/ServiceCard/ServicesCard";
+import AllDetailsPost from "./Componend/Posts/AllDetailsPost";
+import Signup from "./Componend/Signup/Signup";
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -25,12 +28,20 @@ const router = createBrowserRouter([
         element: <VideoShowCard />,
       },
       {
-        path:'/media'
+        path:'/media',
+        element:<AllDetailsPost/>
      
+      },
+      {
+        path:"/signup",
+        element:<Signup/>
       }
+      
     ],
   },
 ]);
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <RouterProvider router={router}></RouterProvider>
+  <RouterProvider router={router}>
+
+  </RouterProvider>
 );

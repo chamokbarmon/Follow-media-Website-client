@@ -1,28 +1,72 @@
 import React, { useState } from "react";
+import Swal from "sweetalert2";
+
+
 
 const ServicesCard = () => {
   const [text, setText] = useState("");
-  const [file, setFile] = useState("");
+  const [files, setFiles] = useState("");
   const imgHostkey = import.meta.env.VITE_REACT_APP_IMGBB_KEY;
 
-  function buttonHandel(e) {
+  // Handel Submit img and text
+  const handelSubmit =  (e) => {
+    e.preventDefault();
     const fromData = new FormData();
-    fromData.append("image", file);
-    fromData.append("text", text);
+    fromData.append("image", files);
     const url = `https://api.imgbb.com/1/upload?expiration=600&key=${imgHostkey}`;
     fetch(url, {
       method: "POST",
       body: fromData,
     })
       .then((res) => res.json())
-      .then((imgData) => {
-        console.log(imgData);
+      .then((result) => {
+        const saveData = {
+          image: result.data.display_url,
+          name: text,
+          date: new Date(),
+          like: 0,
+          
+        };
+        fetch(`https://follow-server-dd657x478-chamokbarmon.vercel.app/media`,{
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify(saveData),
+        })
+          .then((res) => res.json())
+          .then((r) => {
+            console.log(r);
+            if (r.success) {
+              Swal.fire({
+                position: 'center',
+                icon: 'success',
+                title: 'Your post is created successfully',
+                showConfirmButton: false,
+                timer: 1500
+              })
+            } else {
+              Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Something went wrong!your post not created',
+                footer: '<a href="">Why do I have this issue?</a>'
+              })
+
+            }
+          });
+      })
+      .catch((error) => {
+         toast.error(error.message)
       });
-  }
+    setText("")
+    
+  };
+  // Handel Submit img and text end
 
   return (
     <div>
-      <h1 className="text-center text-3xl font-bold mb-10 italic ">
+      <h1 className="text-center text-3xl font-bold mb-10 italic">
         .....Write a Create Post.....
       </h1>
       <div
@@ -37,7 +81,11 @@ const ServicesCard = () => {
             "url(https://i.ibb.co/gz4mYLF/pngtree-modern-double-color-futuristic-neon-background-image-351866.jpg)",
         }}
       >
-        <div className="card-body w-full top-0  ml-80  align-middle">
+        {/* from Area  */}
+        <form
+          onSubmit={handelSubmit}
+          className="card-body w-full top-0  ml-80  align-middle"
+        >
           <div class="max-w-xl w-full opacity-95 mt-28 bg-white rounded-lg shadow-md p-4">
             <div class="flex items-center">
               <img
@@ -54,6 +102,8 @@ const ServicesCard = () => {
               <p class="text-gray-800 font-bold">What's on your mind?</p>
               <textarea
                 onChange={(e) => setText(e.target.value)}
+                name="name"
+                value={text}
                 class="w-full h-20 p-2 border border-black font-bold  rounded-md mt-2 focus:ring focus:ring-blue-500"
                 placeholder="Write something..."
               ></textarea>
@@ -71,22 +121,19 @@ const ServicesCard = () => {
                   </svg>
                 </label>
                 <input
-                  onChange={(e) => setFile(e.target.files[0])}
+                  onChange={(e) => setFiles(e.target.files[0])}
                   name="image"
                   id="fileInput"
                   type="file"
                   placeholder="Add Photo"
                 />
               </div>
-              <button
-                onClick={buttonHandel}
-                class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
-              >
+              <button class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">
                 Post
               </button>
             </div>
           </div>
-        </div>
+        </form>
       </div>
     </div>
   );

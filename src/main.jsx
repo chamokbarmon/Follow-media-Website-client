@@ -10,7 +10,6 @@ import {
 import Main from "./Layout/Main.jsx";
 import Home from "./Componend/Home/Home";
 import VideoShowCard from "./Componend/VideoShowCard/VideoShowCard";
-import ServicesCard from "./Componend/ServiceCard/ServicesCard";
 import AllDetailsPost from "./Componend/Posts/AllDetailsPost";
 import Signup from "./Componend/Signup/Signup";
 

@@ -13,6 +13,7 @@ const ServicesCard = () => {
     e.preventDefault();
     const fromData = new FormData();
     fromData.append("image", files);
+    console.log("I am image key ", imgHostkey)
     const url = `https://api.imgbb.com/1/upload?expiration=600&key=${imgHostkey}`;
     fetch(url, {
       method: "POST",

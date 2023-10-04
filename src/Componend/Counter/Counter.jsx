@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import Countdown from "react-countdown";
 
 const Counter = () => {
- 
   const initialHours = 24;
   const initialMinutes = 0;
   const initialSeconds = 0;
@@ -37,37 +36,32 @@ const Counter = () => {
       <div>
         <div>
           <div>
-      <div>
-        <div className="container grid grid-flow-col gap-10 mb-10 text-center auto-cols-max justify-center mx-auto">
-         
-          <div className="flex flex-col p-2 bg-neutral rounded-box text-neutral-content">
-            <span className="countdown font-mono text-5xl">
-             15
-            </span>
-            Days
-          </div>
-          <div className="flex flex-col p-2 bg-neutral rounded-box text-neutral-content">
-            <span className="countdown font-mono text-5xl">
-            {hours}
-            </span>
-            hours
-          </div>
-          <div className="flex flex-col p-2 bg-neutral rounded-box text-neutral-content">
-            <span className="countdown font-mono text-5xl">
-            {minutes}
-            </span>
-            min
-          </div>
-          <div className="flex flex-col p-2 bg-neutral rounded-box text-neutral-content">
-            <span className="countdown font-mono text-5xl">
-            {seconds}
-            </span>
-            sec
+            <div>
+              <div className="container grid grid-flow-col gap-10 mb-10 text-center auto-cols-max justify-center mx-auto">
+                <div className="flex flex-col p-2 bg-neutral rounded-box text-neutral-content">
+                  <span className="countdown font-mono text-5xl">15</span>
+                  Days
+                </div>
+                <div className="flex flex-col p-2 bg-neutral rounded-box text-neutral-content">
+                  <span className="countdown font-mono text-5xl">{hours}</span>
+                  hours
+                </div>
+                <div className="flex flex-col p-2 bg-neutral rounded-box text-neutral-content">
+                  <span className="countdown font-mono text-5xl">
+                    {minutes}
+                  </span>
+                  min
+                </div>
+                <div className="flex flex-col p-2 bg-neutral rounded-box text-neutral-content">
+                  <span className="countdown font-mono text-5xl">
+                    {seconds}
+                  </span>
+                  sec
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-    </div>
-    </div>
       </div>
     );
   };
@@ -85,7 +79,3 @@ const Counter = () => {
 };
 
 export default Counter;
-
-
-
-

@@ -1,8 +1,23 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./Navbar.css";
+import { useContext } from "react";
+import { Auth } from "../../Contexts/AuthContext";
 
 const Navbar = () => {
+  const { LogOut, user } = useContext(Auth);
+  const  navigate = useNavigate()
+
+  const handelLogOut = (e) => {
+    LogOut()
+      .then(() => {
+         
+    
+      })
+      .catch((error) => {
+        console.log(error.name);
+      });
+  };
   return (
     <div className="navbar  color text-white">
       <div className="navbar-start">
@@ -106,12 +121,20 @@ const Navbar = () => {
             <li>
               <a>Settings</a>
             </li>
-            <li>
-              <Link to='/signup'>Signup</Link>
-            </li>
-            <li>
-              <a>Logout</a>
-            </li>
+            {user?.email ? (
+              <li>
+                <button onClick={handelLogOut}>SignOut</button>
+              </li>
+            ) : (
+              <>
+                <li>
+                  <Link to="/login">Login</Link>
+                </li>
+                <li>
+                  <Link to="/signup">Signup</Link>
+                </li>
+              </>
+            )}
           </ul>
         </div>
       </div>

@@ -1,9 +1,11 @@
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
-import React from 'react';
-import app from '../Componend/Hook/Firebase.config';
+import React, { useContext } from 'react';
+import { Auth } from '../Contexts/AuthContext';
+
 
 const PrivateRoute = () => {
-    const auth = getAuth(app)
+   const user = useContext(Auth)
+   console.log(user);
 
     onAuthStateChanged(auth, (user) => {
         if (user) {

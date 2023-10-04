@@ -1,135 +1,109 @@
-import { createUserWithEmailAndPassword, getAuth } from 'firebase/auth';
-import React, { useState } from 'react';
-import Swal from 'sweetalert2';
-import app from '../Hook/Firebase.config';
-import { Link } from 'react-router-dom';
-
+import React, { useState } from "react";
+import Swal from "sweetalert2";
+import { Link, useNavigate } from "react-router-dom";
+import "./Login.css";
+import { useContext } from "react";
+import { Auth } from "../../Contexts/AuthContext";
 const Login = () => {
+  //    State create ..............
+  const { signInUser } = useContext(Auth);
+  const [error, setError] = useState("");
+  const [isdisabled, setDisabled] = useState(true);
+  const navigate = useNavigate();
 
-//    State create ..............
-    const [name, setName] = useState("");
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [error, setError] = useState("");
-    const [isdisabled, setDisabled] = useState(true);
-    const auth = getAuth(app)
-//    State create End ..............
+  //    State create End ..............
 
-
-
-// Login email , password handel start
-const handelName = (e) => {
-    setName(e.target.value);
-  };
-  const handelEmail = (e) => {
-    setEmail(e.target.value);
-  };
-  const handelPassword = (e) => {
-    if (!/(?=.{8,})/.test(e.target.value)) {
+  // Handel button submit Function End............................
+  const handelSubmit = (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const password = form.password.value;
+    const email = form.email?.value;
+    const button = form.button.value;
+    console.log(email, password);
+    if (!/(?=.{8,})/.test(password)) {
       setError("Your password is Invalid");
       return;
     }
-    if (!/(?=.*[a-zA-Z])/.test(e.target.value)) {
+    if (!/(?=.*[a-zA-Z])/.test(password)) {
       setError("your password is Invalid");
     }
-    setPassword(e.target.value);
     setError("");
-  };
-// Login  handel  End.................
-
- // Handel button submit Function..................
- const handelButtonClick = (e) => {
-    e.preventDefault();
-
-    if ((name, email, password)) {
-      createUserWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
-          const user = userCredential.user;
-          Swal.fire({
-            position: "center",
-            icon: "success",
-            title: "Your Sign Up is Successfully",
-            showConfirmButton: false,
-            timer: 1500,
-          });
-          setError("");
-          navigate("/");
-         
-        })
-        .catch((error) => {
-          const errorMessage = error.message;
-          setError(errorMessage);
+    signInUser(email, password)
+      .then((result) => {
+        const users = result.users;
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "Your Sign Up is Successfully",
+          showConfirmButton: false,
+          timer: 1500,
         });
-    } else {
-      setError("please fil out the input");
-      return;
-    }
+        setError("");
+        navigate("/");
+        console.log(users);
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
   };
-  // Handel button submit Function End............................
-    
-    return (
-        <div className="h-[800px] w-96 justify-center  items-center mx-auto mt-32">
-        <div>
-          <h2 className="text-center text-4xl">Login</h2>
-          <form className="border mx-auto p-10 mt-7 bg-slate-600 text-white  rounded-xl ">
-            <div className="form-control w-full max-w-xs">
-              <label className="label">
-                <span className="label-text font-bold">Name </span>
-              </label>
-              <input
-                onBlur={handelName}
-                name="name"
-                type="text"
-                placeholder="Full Name"
-                className="input input-bordered w-full max-w-xs"
-              />
-            </div>
-            <div className="form-control w-full max-w-xs">
-              <label className="label">
-                <span className="label-text font-bold">Email</span>
-              </label>
-              <input
-                onBlur={handelEmail}
-                name="email"
-                typeof="email"
-                placeholder="Enter Your Email"
-                className="input input-bordered w-full max-w-xs"
-              />
-            </div>
-            <div className="form-control w-full max-w-xs">
-              <label className="label">
-                <span className="label-text font-bold">Password</span>
-              </label>
-              <input
-                onBlur={handelPassword}
-                name="password"
-                type="password"
-                placeholder="New Password"
-                className="input input-bordered w-full max-w-xs"
-              />
-            </div>
-            <p className="text-red-600 text-center"></p>
-            <div className="flex mt-5">
-              <input onClick={() => setDisabled(!isdisabled)} type="checkbox" />
-              <span className="text-1xl ml-2">Accept term & Condition</span>
-            </div>
+
+  // Handel submit Function End............................
+
+  return (
+    <div className="h-[800px] w-96 justify-center  items-center mx-auto mt-32">
+      <div>
+        <h2 className="text-center text-4xl">Login</h2>
+        <form
+          onSubmit={handelSubmit}
+          className="border mx-auto p-10 mt-7 c text-white  rounded-xl "
+        >
+          <div className="form-control w-full max-w-xs">
+            <label className="label">
+              <span className="label-text font-bold text-white ">Email</span>
+            </label>
             <input
-              disabled={isdisabled}
-              onClick={handelButtonClick}
-              className="btn btn-primary w-80  mt-10"
-              type="submit"
+              name="email"
+              typeof="email"
+              placeholder="Enter Your Email"
+              className="input input-bordered w-full max-w-xs text-black"
             />
-          </form>
-       
-          <p className="text-priamry font-bold">
-           Create a new Account {""}
-            <Link to="/signup" className="text-secondary">
-              Sign up
-            </Link>
-          </p>
-        </div>
+          </div>
+          <div className="form-control w-full max-w-xs">
+            <label className="label">
+              <span className="label-text font-bold text-white">Password</span>
+            </label>
+            <input
+              name="password"
+              type="password"
+              placeholder="New Password"
+              className="input input-bordered w-full max-w-xs text-black"
+            />
+          </div>
+          <p className="text-red-600 text-center">{error}</p>
+          <div className="flex mt-5">
+            <input onClick={() => setDisabled(!isdisabled)} type="checkbox" />
+            <span className="text-1xl ml-2 text-white ">
+              Accept term & Condition
+            </span>
+          </div>
+          <input
+            name="button"
+            disabled={isdisabled}
+            className="btn btn-primary w-80  mt-10 text-white "
+            type="submit"
+          />
+        </form>
+
+        <p className="text-priamry font-bold">
+          Create a new Account {""}
+          <Link to="/signup" className="text-secondary">
+            Sign up
+          </Link>
+        </p>
       </div>
-    );
+    </div>
+  );
 };
 
 export default Login;
